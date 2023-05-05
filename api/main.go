@@ -1,8 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"api/movie_controller"
+	"fmt"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,8 +17,13 @@ func main() {
 	r.PUT("/movies/:id", movie_controller.UpdateMovie)
 	r.DELETE("/movies/:id", movie_controller.DeleteMovie)
 
+	r.POST("/users", movie_controller.CreateUser)
+	r.GET("/users", movie_controller.GetAllUsers)
+	r.POST("/login", movie_controller.Login)
+
 	// Start server
 	if err := r.Run(":8080"); err != nil {
 		fmt.Println("Error starting server:", err)
 	}
+
 }
