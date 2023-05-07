@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    movieStore.getAllMovies();
+    movieStore.getAllMovies(context: context);
     super.initState();
   }
 
@@ -66,17 +66,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               ...movieStore.movies
                                   .map(
-                                    (element) => Container(
+                                    (movie) => Container(
                                       height: 150,
                                       width: 100,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(15),
                                         image: DecorationImage(
-                                          image: AssetImage(
-                                            getAssetImageUrl(
-                                              "poster.jpeg",
-                                            ),
-                                          ),
+                                          image: NetworkImage(movie.posterUrl),
                                           fit: BoxFit.cover,
                                         ),
                                       ),

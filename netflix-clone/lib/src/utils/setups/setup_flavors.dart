@@ -20,7 +20,7 @@ class SetupFlavors {
       if (packageInfo.packageName.contains("homolog")) {
         baseUrl = "";
       } else if (packageInfo.packageName.contains("staging")) {
-        baseUrl = "";
+        baseUrl = "http://10.0.2.2:8080/";
       } else {
         baseUrl = "";
       }

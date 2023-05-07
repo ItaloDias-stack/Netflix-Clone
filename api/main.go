@@ -31,15 +31,17 @@ func main() {
 }
 func setupValues() {
 	user1 := models.User{
+		ID:	  1,
 		Name:     "João",
 		Email:    "joao@example.com",
 		Password: "senha123",
 		Role:     "admin",
 	}
 	user2 := models.User{
-		Name:     "Maria",
-		Email:    "maria@example.com",
-		Password: "outrasenha",
+		ID:	  2,
+		Name:     "Italo",
+		Email:    "italo@gmail.com",
+		Password: "123456789",
 		Role:     "user",
 	}
 	data.Users = append(data.Users, user1, user2)

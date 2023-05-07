@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
 void printException(String identifier, e, s) {
   log(identifier);
@@ -10,4 +11,14 @@ void printException(String identifier, e, s) {
   }
   log(e.toString());
   log(s.toString());
+}
+
+showMessage(String message, Color color, BuildContext context) {
+  ScaffoldMessenger.of(context).clearSnackBars();
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      backgroundColor: color,
+      content: Text(message),
+    ),
+  );
 }
