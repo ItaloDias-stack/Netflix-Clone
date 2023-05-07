@@ -13,6 +13,8 @@ type Movie struct {
 	Title    string         `json:"title"`
 	Director string         `json:"director"`
 	Year     int            `json:"year"`
+	Sinopse  string         `json:"sinopse"`
+	Url      string         `json:"url"`
 	Episodes []MovieEpisode `json:"episodes,omitempty"`
 }
 
