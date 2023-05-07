@@ -24,7 +24,7 @@ func main() {
 	r.POST("/login", movie_controller.Login)
 
 	// Start server
-	if err := r.Run(":8080"); err != nil {
+	if err := r.Run("localhost:8080"); err != nil {
 		fmt.Println("Error starting server:", err)
 	}
 
