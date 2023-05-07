@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:netfix_clone/src/presentation/views/home_screen/home_screen.dart';
 import 'package:netfix_clone/src/presentation/views/login_screen/login_screen.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:netfix_clone/src/utils/custom_colors.dart';
 import 'package:netfix_clone/src/utils/fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../utils/authentication.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -24,9 +26,9 @@ class _SplashScreenState extends State<SplashScreen> {
   void didChangeDependencies() async {
     Future.delayed(const Duration(milliseconds: 1500)).then((value) async {
       try {
-        var authenticated = await Authentication.authenticated();
-        if (authenticated) {
-          Navigator.pushNamed(context, LoginScreen.routeName);
+        final prefs = await SharedPreferences.getInstance();
+        if (prefs.getInt("userId") != null) {
+          Navigator.pushNamed(context, HomeScreen.routeName);
           removeNativeSplash();
         } else {
           //Navigator.pushNamed(context, <YOUR-AUTH-SCREEN>.routeName); //TODO
@@ -49,7 +51,6 @@ class _SplashScreenState extends State<SplashScreen> {
         color: CustomColors.grey,
         width: double.infinity,
         height: double.infinity,
-        //TODO: YOUR SPLASH SCREEN IMAGE HERE. IT WILL BE BEHIND THE NATIVE, IN CASE IT ENDS WITH PROBLEM, TO HAVE SOMETHING TO SHOW
         child: Center(
           child: Text(
             "SPLASH SCREEN",

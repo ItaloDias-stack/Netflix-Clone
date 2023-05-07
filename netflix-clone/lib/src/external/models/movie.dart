@@ -10,7 +10,7 @@ class Movie {
   final int year;
   final String sinopse;
   final List<Episode> episodes;
-  @JsonKey(name: "poster_url")
+  @JsonKey(name: "url")
   final String posterUrl;
   const Movie({
     this.id = -1,
