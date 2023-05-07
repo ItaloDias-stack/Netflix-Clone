@@ -31,14 +31,14 @@ func main() {
 }
 func setupValues() {
 	user1 := models.User{
-		ID:	  1,
+		ID:       1,
 		Name:     "João",
 		Email:    "joao@example.com",
 		Password: "senha123",
 		Role:     "admin",
 	}
 	user2 := models.User{
-		ID:	  2,
+		ID:       2,
 		Name:     "Italo",
 		Email:    "italo@gmail.com",
 		Password: "123456789",
@@ -126,6 +126,22 @@ func setupValues() {
 		Sinopse:  "Amid the challenges of the coronavirus pandemic, a pair of detectives goes after those responsible for a series of sinister events.",
 		Url:      "https://m.media-amazon.com/images/M/MV5BYTk2YjBkYWUtNmYxNS00M2Q5LTkyN2MtYzA0NDMwMTlkNDA0XkEyXkFqcGdeQXVyMTA0MjU0Ng@@._V1_.jpg",
 	}
+	filme11 := models.Movie{
+		ID:       11,
+		Title:    "Everything Everywhere All at Once",
+		Director: "Daniel Scheinert, Daniel Kwan",
+		Year:     2022,
+		Sinopse:  "When an interdimensional rupture unravels reality, an unlikely hero must channel her newfound powers to fight bizarre and bewildering dangers from the multiverse as the fate of the world hangs in the balance.",
+		Url:      "https://image.tmdb.org/t/p/original/8z93FvxClC5GIq7OLyN0MaOohQB.jpg",
+	}
+	filme12 := models.Movie{
+		ID:       12,
+		Title:    "The Silence of the Lambs",
+		Director: "Jonathan Demme",
+		Year:     1991,
+		Sinopse:  "A young man must be given the help of an imprisoned, manipulative cannibalistic killer to help capture another serial killer, a madman who preys on his victims.",
+		Url:      "https://m.media-amazon.com/images/M/MV5BNjNhZTk0ZmEtNjJhMi00YzFlLWE1MmEtYzM1M2ZmMGMwMTU4XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg",
+	}
 
-	data.Movies = append(data.Movies, filme1, filme2, filme3, filme4, filme5, filme6, filme7, filme8, filme9, filme10)
+	data.Movies = append(data.Movies, filme1, filme2, filme3, filme4, filme5, filme6, filme7, filme8, filme9, filme10, filme11, filme12)
 }
