@@ -3,11 +3,14 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:netfix_clone/src/presentation/stores/movies_store.dart';
+import 'package:netfix_clone/src/presentation/stores/user_store.dart';
+import 'package:netfix_clone/src/presentation/views/movie_screen/movie_detais_screen.dart';
+import 'package:netfix_clone/src/presentation/views/profile_screen/profile_screen.dart';
 import 'package:netfix_clone/src/presentation/widgets/custom_screen_loader.dart';
-import 'package:netfix_clone/src/presentation/widgets/custom_scroll_with_expanded.dart';
 import 'package:netfix_clone/src/presentation/widgets/user_rounded_icon.dart';
 import 'package:netfix_clone/src/utils/custom_colors.dart';
 import 'package:netfix_clone/src/utils/helpers/assets_helper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = "home_screen";
@@ -20,10 +23,17 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final movieStore = GetIt.I.get<MovieStore>();
-
+  final userStore = GetIt.I.get<UserStore>();
   @override
   void initState() {
     movieStore.getAllMovies(context: context);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      final prefs = await SharedPreferences.getInstance();
+      int? id = prefs.getInt("userId");
+      if (id != null) {
+        userStore.getUserById(id: id);
+      }
+    });
     super.initState();
   }
 
@@ -36,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Container(
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child: movieStore.loading
+            child: movieStore.loading || userStore.loading
                 ? const CustomScreenLoader()
                 : Column(
                     children: [
@@ -48,10 +58,18 @@ class _HomeScreenState extends State<HomeScreen> {
                             getAssetVectorUrl("full_name_logo.svg"),
                             width: 100,
                           ),
-                          const UserRoundedIcon(
-                            width: 50,
-                            height: 50,
-                            imageUrl: null,
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                ProfileScreen.routeName,
+                              );
+                            },
+                            child: const UserRoundedIcon(
+                              width: 50,
+                              height: 50,
+                              imageUrl: null,
+                            ),
                           )
                         ],
                       ),
@@ -66,14 +84,25 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               ...movieStore.movies
                                   .map(
-                                    (movie) => Container(
-                                      height: 150,
-                                      width: 100,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        image: DecorationImage(
-                                          image: NetworkImage(movie.posterUrl),
-                                          fit: BoxFit.cover,
+                                    (movie) => GestureDetector(
+                                      onTap: () {
+                                        movieStore.setSelectedMovie(movie);
+                                        Navigator.pushNamed(
+                                          context,
+                                          MovieDetailsScreen.routeName,
+                                        );
+                                      },
+                                      child: Container(
+                                        height: 150,
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          image: DecorationImage(
+                                            image:
+                                                NetworkImage(movie.posterUrl),
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
                                       ),
                                     ),

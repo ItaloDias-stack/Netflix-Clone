@@ -15,4 +15,8 @@ abstract class UserDatasource implements IUserRepository {
   @override
   @POST("users")
   Future createUser({@Body() required Map<String, dynamic> body});
+
+  @override
+  @GET("users/{id}")
+  Future getUserById({@Path("id") required int id});
 }

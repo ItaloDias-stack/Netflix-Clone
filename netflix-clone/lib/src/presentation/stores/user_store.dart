@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
+import 'package:netfix_clone/src/external/models/user.dart';
 import 'package:netfix_clone/src/presentation/usecases/i_create_user_uc.dart';
+import 'package:netfix_clone/src/presentation/usecases/i_get_user_by_id_uc.dart';
 import 'package:netfix_clone/src/presentation/usecases/i_login_uc.dart';
 import 'package:netfix_clone/src/presentation/views/home_screen/home_screen.dart';
 part 'user_store.g.dart';
@@ -11,6 +13,9 @@ class UserStore = _UserStoreBase with _$UserStore;
 abstract class _UserStoreBase with Store {
   @observable
   bool loading = false;
+
+  @observable
+  User user = User();
 
   @action
   Future login({
@@ -50,5 +55,15 @@ abstract class _UserStoreBase with Store {
     if (response) {
       Navigator.pushNamed(context, HomeScreen.routeName);
     }
+  }
+
+  @action
+  Future getUserById({required int id}) async {
+    loading = true;
+    var response = await GetIt.I.get<IGetUserByIdUseCase>()(id: id);
+    if (response != null) {
+      user = response;
+    }
+    loading = false;
   }
 }
