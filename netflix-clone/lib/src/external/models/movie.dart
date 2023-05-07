@@ -12,9 +12,11 @@ class Movie {
   final List<Episode> episodes;
   @JsonKey(name: "url")
   final String posterUrl;
+  final String trailer;
   const Movie({
     this.id = -1,
     this.title = "",
+    this.trailer = "",
     this.director = "",
     this.episodes = const [],
     this.sinopse = "",

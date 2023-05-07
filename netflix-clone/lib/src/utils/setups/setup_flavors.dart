@@ -15,7 +15,7 @@ class SetupFlavors {
   Future<void> setup() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     if (kIsWeb) {
-      baseUrl = "";
+      baseUrl = "http://10.0.2.2:8080/";
     } else {
       if (packageInfo.packageName.contains("homolog")) {
         baseUrl = "";

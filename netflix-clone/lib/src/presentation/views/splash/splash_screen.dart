@@ -1,12 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:netfix_clone/src/presentation/views/home_screen/home_screen.dart';
+import 'package:netfix_clone/src/presentation/views/home_screen/home_screen_admin.dart';
 import 'package:netfix_clone/src/presentation/views/login_screen/login_screen.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:netfix_clone/src/utils/custom_colors.dart';
-import 'package:netfix_clone/src/utils/fonts.dart';
 import 'package:netfix_clone/src/utils/helpers/assets_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../utils/authentication.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -27,14 +26,22 @@ class _SplashScreenState extends State<SplashScreen> {
   void didChangeDependencies() async {
     Future.delayed(const Duration(milliseconds: 1500)).then((value) async {
       try {
-        final prefs = await SharedPreferences.getInstance();
-        if (prefs.getInt("userId") != null) {
-          Navigator.pushNamed(context, HomeScreen.routeName);
+        if (kIsWeb) {
+          Navigator.pushNamed(
+            context,
+            HomeScreenAdmin.routeName,
+          );
           removeNativeSplash();
         } else {
-          //Navigator.pushNamed(context, <YOUR-AUTH-SCREEN>.routeName); //TODO
-          Navigator.pushNamed(context, LoginScreen.routeName);
-          removeNativeSplash();
+          final prefs = await SharedPreferences.getInstance();
+          if (prefs.getInt("userId") != null) {
+            Navigator.pushNamed(context, HomeScreen.routeName);
+            removeNativeSplash();
+          } else {
+            //Navigator.pushNamed(context, <YOUR-AUTH-SCREEN>.routeName); //TODO
+            Navigator.pushNamed(context, LoginScreen.routeName);
+            removeNativeSplash();
+          }
         }
       } catch (e) {
         //Navigator.pushNamed(context, <YOUR-AUTH-SCREEN>.routeName); //TODO
@@ -49,13 +56,12 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: CustomColors.grey,
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
-              getAssetImageUrl("splash.jpg"),
+              getAssetImageUrl("splash.png"),
             ),
             fit: BoxFit.cover,
           ),
