@@ -4,6 +4,7 @@ import 'package:netfix_clone/src/presentation/views/login_screen/login_screen.da
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:netfix_clone/src/utils/custom_colors.dart';
 import 'package:netfix_clone/src/utils/fonts.dart';
+import 'package:netfix_clone/src/utils/helpers/assets_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../utils/authentication.dart';
 
@@ -51,31 +52,15 @@ class _SplashScreenState extends State<SplashScreen> {
         color: CustomColors.grey,
         width: double.infinity,
         height: double.infinity,
-        child: Center(
-          child: Text(
-            "SPLASH SCREEN",
-            style: Fonts.headline1.copyWith(
-              color: CustomColors.black,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+              getAssetImageUrl("splash.jpg"),
             ),
+            fit: BoxFit.cover,
           ),
         ),
       ),
     );
   }
-
-  // ADD THIS WHEN ADDING FIREBASE MESSAGING, IF NOT, REMOVE IT
-
-  // NotificationService().setup().then((value) {
-  //   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-  //     firebaseCloudMessagingListeners();
-  //   });
-  // });
-
-  // void firebaseCloudMessagingListeners() async {
-  //   NotificationService.onMessage.listen(
-  //     (RemoteMessage? message) {
-  //       NotificationService().invokeLocalNotification(message!);
-  //     },
-  //   );
-  // }
 }
