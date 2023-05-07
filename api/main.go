@@ -18,7 +18,7 @@ func main() {
 	r.POST("/movies", movie_controller.CreateMovie)
 	r.PUT("/movies/:id", movie_controller.UpdateMovie)
 	r.DELETE("/movies/:id", movie_controller.DeleteMovie)
-
+	r.GET("/users/:id", movie_controller.GetUserById)
 	r.POST("/users", movie_controller.CreateUser)
 	r.GET("/users", movie_controller.GetAllUsers)
 	r.POST("/login", movie_controller.Login)

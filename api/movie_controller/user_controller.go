@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"strconv"
 )
 
 func CreateUser(c *gin.Context) {
@@ -68,4 +69,20 @@ func Login(c *gin.Context) {
 		})
 	}
 
+}
+
+func GetUserById(c *gin.Context) {
+    id,err := strconv.Atoi(c.Param("id"))
+    if err != nil {
+        c.JSON(http.StatusNotFound, gin.H{"error": "Invalid id"})
+        return
+    }
+    for _, user := range data.Users {
+        if user.ID == id {
+            c.JSON(http.StatusOK, gin.H{"data": user})
+            return
+        }
+    }
+
+    c.JSON(http.StatusNotFound, gin.H{"error": "Movie not found"})
 }
