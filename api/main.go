@@ -1,6 +1,8 @@
 package main
 
 import (
+	"api/data"
+	"api/models"
 	"api/movie_controller"
 	"fmt"
 
@@ -9,7 +11,7 @@ import (
 
 func main() {
 	r := gin.Default()
-
+	setupValues()
 	// Endpoints
 	r.GET("/movies", movie_controller.GetMovies)
 	r.GET("/movies/:id", movie_controller.GetMovieById)
@@ -25,5 +27,21 @@ func main() {
 	if err := r.Run(":8080"); err != nil {
 		fmt.Println("Error starting server:", err)
 	}
+
+}
+func setupValues() {
+	user1 := models.User{
+		Name:     "João",
+		Email:    "joao@example.com",
+		Password: "senha123",
+		Role:     "admin",
+	}
+	user2 := models.User{
+		Name:     "Maria",
+		Email:    "maria@example.com",
+		Password: "outrasenha",
+		Role:     "user",
+	}
+	data.Users = append(data.Users, user1, user2)
 
 }
