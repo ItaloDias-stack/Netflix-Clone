@@ -42,7 +42,9 @@ func Login(c *gin.Context) {
 		return
 	}
 	var status bool = false
+	
 	// Verificar credenciais de login aqui
+	
 	for _, valor := range data.Users {
 		fmt.Println("request", newUser.Email, " db", valor.Email)
 		fmt.Println("request", newUser.Password, " db", valor.Password)

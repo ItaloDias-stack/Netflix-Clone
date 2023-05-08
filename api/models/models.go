@@ -16,10 +16,11 @@ type Movie struct {
 	Sinopse  string         `json:"sinopse"`
 	Url      string         `json:"url"`
 	Episodes []MovieEpisode `json:"episodes,omitempty"`
+	Trailer  string         `json:"trailer"`
 }
 
 type User struct {
-	ID 	 int 	`json:"id"`
+	ID       int    `json:"id"`
 	Name     string `json:"name"`
 	Email    string `json:"email"`
 	Password string `json:"password"`
