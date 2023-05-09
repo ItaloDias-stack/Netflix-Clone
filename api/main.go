@@ -34,8 +34,8 @@ func setupValues() {
 	user1 := models.User{
 		ID:       1,
 		Name:     "João",
-		Email:    "joao@example.com",
-		Password: "senha123",
+		Email:    "admin",
+		Password: "admin",
 		Role:     "admin",
 	}
 	user2 := models.User{

@@ -4,6 +4,7 @@ package movie_controller
 import (
     "net/http"
 	"api/models"
+    "fmt"
     "github.com/gin-gonic/gin"
 	"api/data"
     "strconv"
@@ -39,7 +40,8 @@ func CreateMovie(c *gin.Context) {
         c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
         return
     }
-
+    movie.ID =  len(data.Movies)+1
+    fmt.Println("request", movie.Title, " year", movie.Year)
     data.Movies = append(data.Movies, movie)
 
     c.JSON(http.StatusCreated, gin.H{"data": movie})
@@ -54,12 +56,12 @@ func UpdateMovie(c *gin.Context) {
     }
 
     var updatedMovie models.Movie
-
+    
     if err := c.ShouldBindJSON(&updatedMovie); err != nil {
         c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
         return
     }
-
+    updatedMovie.ID = id;
     for i, movie := range data.Movies {
         if movie.ID == id {
             data.Movies[i] = updatedMovie

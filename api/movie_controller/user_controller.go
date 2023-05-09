@@ -46,24 +46,28 @@ func Login(c *gin.Context) {
 	// Verificar credenciais de login aqui
 	
 	for _, valor := range data.Users {
-		fmt.Println("request", newUser.Email, " db", valor.Email)
-		fmt.Println("request", newUser.Password, " db", valor.Password)
+		//fmt.Println("request", newUser.Email, " db", valor.Email)
+		//fmt.Println("request", newUser.Password, " db", valor.Password)
 		if newUser.Email == valor.Email && newUser.Password == valor.Password {
-			
+			fmt.Println("entrei")
 			status=true;
+			break
 		} else {
-			
 			status=false;
 		}
 
 	}
-	if status{for _, valor := range data.Users {
-		if newUser.Email == valor.Email{
-			c.JSON(http.StatusOK, gin.H{
-				"user": valor,
-			})
+	fmt.Println(status)
+	if status {
+		for _, valor := range data.Users {
+			fmt.Println("aaaa")
+			if newUser.Email == valor.Email{
+				fmt.Println("entrei2")
+				c.JSON(http.StatusOK, gin.H{
+					"user": valor,
+				})
+			}
 		}
-	}
 		
 	} else{
 		c.JSON(http.StatusUnauthorized, gin.H{

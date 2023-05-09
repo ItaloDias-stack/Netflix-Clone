@@ -11,4 +11,19 @@ abstract class MovieDatasource implements IMovieRepository {
   @override
   @GET("movies")
   Future getMovies();
+
+  @override
+  @POST("movies")
+  Future createMovie({@Body() required Map<String, dynamic> body});
+
+  @override
+  @PUT("movies/{id}")
+  Future updateMovie({
+    @Body() required Map<String, dynamic> body,
+    @Path("id") required int id,
+  });
+
+  @override
+  @DELETE("movies/{id}")
+  Future deleteMovie({@Path("id") required int id});
 }

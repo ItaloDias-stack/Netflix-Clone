@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:netfix_clone/src/presentation/views/add_movie_screen/add_movie_screen.dart';
 import 'package:netfix_clone/src/presentation/views/custom_loader_screen/custom_loader_screen.dart';
 import 'package:netfix_clone/src/presentation/views/home_screen/home_screen.dart';
 import 'package:netfix_clone/src/presentation/views/home_screen/home_screen_admin.dart';
@@ -17,4 +18,5 @@ final Map<String, WidgetBuilder> routes = {
   MovieDetailsScreen.routeName: (_) => const MovieDetailsScreen(),
   PlayerScreen.routeName: (_) => const PlayerScreen(),
   HomeScreenAdmin.routeName: (_) => const HomeScreenAdmin(),
+  AddMovieScreen.routeName: (_) => const AddMovieScreen(),
 };

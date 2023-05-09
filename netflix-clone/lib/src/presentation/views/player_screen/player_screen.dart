@@ -27,7 +27,7 @@ class _PlayerScreenState extends State<PlayerScreen>
   void initState() {
     flickManager = FlickManager(
       videoPlayerController: VideoPlayerController.network(
-        "https://drive.google.com/uc?id=144eecHZbocRDhLLt8NxrxGBIibcVByKs&export=download",
+        "https://drive.google.com/uc?id=${movieStore.selectedMovie.trailer}&export=download",
       ),
     );
     WidgetsBinding.instance.addObserver(this);
