@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:netfix_clone/src/presentation/stores/movies_store.dart';
 import 'package:netfix_clone/src/presentation/stores/user_store.dart';
+import 'package:netfix_clone/src/presentation/views/add_movie_screen/add_movie_screen.dart';
 import 'package:netfix_clone/src/presentation/views/movie_screen/movie_detais_screen.dart';
 import 'package:netfix_clone/src/presentation/views/profile_screen/profile_screen.dart';
 import 'package:netfix_clone/src/presentation/widgets/custom_screen_loader.dart';
@@ -31,7 +32,8 @@ class _HomeScreenState extends State<HomeScreen> {
       final prefs = await SharedPreferences.getInstance();
       int? id = prefs.getInt("userId");
       if (id != null) {
-        userStore.getUserById(id: id);
+        await userStore.getUserById(id: id);
+        setState(() {});
       }
     });
     super.initState();
@@ -40,6 +42,24 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: userStore.user.role == "admin"
+          ? FloatingActionButton(
+              backgroundColor: CustomColors.secondary,
+              child: const Center(
+                child: Icon(
+                  Icons.add_rounded,
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: () {
+                movieStore.isEditing = false;
+                Navigator.pushNamed(
+                  context,
+                  AddMovieScreen.routeName,
+                );
+              },
+            )
+          : null,
       backgroundColor: CustomColors.primary,
       body: Observer(builder: (context) {
         return SafeArea(

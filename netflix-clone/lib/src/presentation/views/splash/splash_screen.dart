@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:netfix_clone/src/presentation/stores/user_store.dart';
 import 'package:netfix_clone/src/presentation/views/home_screen/home_screen.dart';
 import 'package:netfix_clone/src/presentation/views/home_screen/home_screen_admin.dart';
 import 'package:netfix_clone/src/presentation/views/login_screen/login_screen.dart';
@@ -26,22 +28,18 @@ class _SplashScreenState extends State<SplashScreen> {
   void didChangeDependencies() async {
     Future.delayed(const Duration(milliseconds: 1500)).then((value) async {
       try {
-        if (kIsWeb) {
-          Navigator.pushNamed(
-            context,
-            HomeScreenAdmin.routeName,
-          );
+        final userStore = GetIt.I.get<UserStore>();
+        final prefs = await SharedPreferences.getInstance();
+        int? id = prefs.getInt("userId");
+        if (id != null) {
+          await userStore.getUserById(id: id);
+          //Navigator.pushNamed(context, HomeScreen.routeName);
+          userStore.navigateByRole(context);
           removeNativeSplash();
         } else {
-          final prefs = await SharedPreferences.getInstance();
-          if (prefs.getInt("userId") != null) {
-            Navigator.pushNamed(context, HomeScreen.routeName);
-            removeNativeSplash();
-          } else {
-            //Navigator.pushNamed(context, <YOUR-AUTH-SCREEN>.routeName); //TODO
-            Navigator.pushNamed(context, LoginScreen.routeName);
-            removeNativeSplash();
-          }
+          //Navigator.pushNamed(context, <YOUR-AUTH-SCREEN>.routeName); //TODO
+          Navigator.pushNamed(context, LoginScreen.routeName);
+          removeNativeSplash();
         }
       } catch (e) {
         //Navigator.pushNamed(context, <YOUR-AUTH-SCREEN>.routeName); //TODO
